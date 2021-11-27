@@ -1,0 +1,41 @@
+.git/
+glfw-3.3.5/
+OpenGL/
+Engine/Alix_1.1/.vs/
+Engine/Alix_1.1/x64/
+Engine/Alix_1.1/Alix_1.1/x64/
+
+*.sln
+
+w# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
