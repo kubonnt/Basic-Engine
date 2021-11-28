@@ -4,6 +4,9 @@ OpenGL/
 Engine/Alix_1.1/.vs/
 Engine/Alix_1.1/x64/
 Engine/Alix_1.1/Alix_1.1/x64/
+Engine/Alix_1.1/Alix_1.1/Alix_1.1.vcxproj
+Engine/ALix_1.1/ALix_1.1/Alix_1.1.vcxproj.filters
+Engine/Alix_1.1/Alix_1.1/Alix_1.1.vcxproj.user
 
 *.sln
 
