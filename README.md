@@ -1,1 +1,1 @@
-Development of my own engine
+Studying computer graphics and developing a game engine/renderer.
