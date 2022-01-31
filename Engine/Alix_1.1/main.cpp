@@ -55,7 +55,7 @@ int main()
 		return -1;
 	}
 
-	Shader ourShader("src/shaders/vertexShader.shader", "src/shaders/fragmentShader.shader");
+	Shader ourShader("src/shaders/vertexShader.glsl", "src/shaders/fragmentShader.glsl");
 
 	unsigned int VBO, VAO;
 	glGenVertexArrays(1, &VAO); // We can generate multiple VAOs or buffers at the same time
