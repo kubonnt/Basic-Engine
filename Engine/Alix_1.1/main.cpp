@@ -26,7 +26,7 @@ float firstTriangle[] = {
 		 // positions       // colors 
 		 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom right
 		-0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // bottom left
-		 0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f   // top 
+		 0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f   // top 
 };
 
 int main()
@@ -58,7 +58,7 @@ int main()
 	Shader ourShader("src/shaders/vertexShader.glsl", "src/shaders/fragmentShader.glsl");
 
 	unsigned int VBO, VAO;
-	glGenVertexArrays(1, &VAO); // We can generate multiple VAOs or buffers at the same time
+	glGenVertexArrays(1, &VAO); // We can generate multiple VAOs or buffers at the same time glGenVertexArrays(1, VAOs);
 	glGenBuffers(1, &VBO);
 	// First triangle setup
 	glBindVertexArray(VAO);
@@ -71,7 +71,7 @@ int main()
 	// color attribute
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*) (3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
-	//glBindVertexArray(0); // no need to unbind as we directly bind a different VAO the next few lines
+	//glBindVertexArray(0); 
 
 	// render loop
 	while (!glfwWindowShouldClose(window))
@@ -86,6 +86,9 @@ int main()
 		ourShader.use();
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		// float offset = 0.5f;
+		// ourShader.setFloat("xOffset", offset);
 	
 		// check and call events and swap the buffers
 		glfwSwapBuffers(window);
