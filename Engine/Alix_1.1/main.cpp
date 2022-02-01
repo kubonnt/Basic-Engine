@@ -1,11 +1,11 @@
 #include <iostream>
-#include <filesystem>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stb_image.h>
 
 #include "include/shader.h"
+#include "include/texture_loader.h"
 
 unsigned int SCR_WIDTH = 800;
 unsigned int SCR_HEIGHT = 600;
@@ -84,6 +84,9 @@ int main()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
+	unsigned int texture = TextureLoader::loadAndGenerateTexture("C:\\Dev\\Alix_1.1\\textures\\container.jpg");   // it works but some include errors happen when I include a header with it
+																												  // need to slove it
+	/*
 	// load and create texture
 	unsigned int texture;
 	glGenTextures(1, &texture);
@@ -108,6 +111,7 @@ int main()
 	}
 	// Freeing image memory
 	stbi_image_free(data);
+	*/
 
 	// render loop
 	while (!glfwWindowShouldClose(window))
