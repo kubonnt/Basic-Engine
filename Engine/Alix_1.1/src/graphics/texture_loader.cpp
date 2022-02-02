@@ -13,9 +13,17 @@ unsigned int TextureLoader::loadAndGenerateTexture(const char* filePath)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// Loading and generating the texture
 	int width, height, nrChannels;
-	unsigned char* data = stbi_load("C:\\Dev\\Alix_1.1\\textures\\container.jpg", &width, &height, &nrChannels, 0);
+	stbi_set_flip_vertically_on_load(true);
+	unsigned char* data = stbi_load(filePath, &width, &height, &nrChannels, 0);
 	if (data)
 	{
+		std::string fullPath = filePath;
+		if (fullPath.substr(fullPath.find_last_of(".") + 1) == "png")
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+			glGenerateMipmap(GL_TEXTURE_2D);
+			return texture;
+		}
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 		return texture;

@@ -3,6 +3,7 @@
 #define TEXTURE_LOADER_H
 
 #include <iostream>
+#include <string>
 #include <stb_image.h>
 
 #include <glad/glad.h>

@@ -84,34 +84,13 @@ int main()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
-	unsigned int texture = TextureLoader::loadAndGenerateTexture("C:\\Dev\\Alix_1.1\\textures\\container.jpg");   // it works but some include errors happen when I include a header with it
-																												  // need to slove it
-	/*
-	// load and create texture
-	unsigned int texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
-	// Setting the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// filtering options (on the currently bound texture object)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Loading and generating the texture
-	int width, height, nrChannels;
-	unsigned char* data = stbi_load("C:\\Dev\\Alix_1.1\\textures\\container.jpg", &width, &height, &nrChannels, 0);
-	if (data)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-	{
-		std::cout << "Failed to load texture" << std::endl;
-	}
-	// Freeing image memory
-	stbi_image_free(data);
-	*/
+	unsigned int texture1 = TextureLoader::loadAndGenerateTexture("C:\\Dev\\Alix_1.1\\textures\\container.jpg");   
+	unsigned int texture2 = TextureLoader::loadAndGenerateTexture("C:\\Dev\\Alix_1.1\\textures\\awesomeface.png");
+	
+	ourShader.use();
+	// glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 0); // we can set it manually
+	ourShader.setInt("texture1", 0); // or, due to the implementation of shader calss, with shader calass method setInt()
+	ourShader.setInt("texture2", 1);
 
 	// render loop
 	while (!glfwWindowShouldClose(window))
@@ -123,13 +102,13 @@ int main()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		ourShader.use();
-		glBindTexture(GL_TEXTURE, texture);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture1);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, texture2);
+
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-		// float offset = 0.5f;
-		// ourShader.setFloat("xOffset", offset);
 	
 		// check and call events and swap the buffers
 		glfwSwapBuffers(window);
