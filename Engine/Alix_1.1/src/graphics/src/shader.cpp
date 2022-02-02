@@ -1,4 +1,4 @@
-#include "../../include/shader.h"
+#include "../include/shader.h"
 
 void Shader::checkCompileErrors(unsigned int shader, std::string type)
 {

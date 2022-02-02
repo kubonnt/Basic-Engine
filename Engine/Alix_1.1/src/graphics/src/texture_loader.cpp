@@ -1,4 +1,4 @@
-#include "../../include/texture_loader.h"
+#include "../include/texture_loader.h"
 
 unsigned int TextureLoader::loadAndGenerateTexture(const char* filePath)
 {
@@ -20,7 +20,7 @@ unsigned int TextureLoader::loadAndGenerateTexture(const char* filePath)
 		std::string fullPath = filePath;
 		if (fullPath.substr(fullPath.find_last_of(".") + 1) == "png")
 		{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 			glGenerateMipmap(GL_TEXTURE_2D);
 			return texture;
 		}

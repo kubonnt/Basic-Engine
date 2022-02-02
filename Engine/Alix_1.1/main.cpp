@@ -4,8 +4,8 @@
 #include <GLFW/glfw3.h>
 #include <stb_image.h>
 
-#include "include/shader.h"
-#include "include/texture_loader.h"
+#include "src/graphics/include/shader.h"
+#include "src/graphics/include/texture_loader.h"
 
 unsigned int SCR_WIDTH = 800;
 unsigned int SCR_HEIGHT = 600;
