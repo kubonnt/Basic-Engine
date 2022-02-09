@@ -8,6 +8,10 @@
 
 #include <glad/glad.h>
 
+/*
+	TODO:
+		Move that code to shader header because it is useless to write a separate header and cpp file for such thing
+*/
 
 struct TextureLoader
 {
