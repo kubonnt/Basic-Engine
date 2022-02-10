@@ -26,20 +26,18 @@ TBD: Function checking if the widnow is closed
 class Window
 {
 private:
+	bool m_Closed; 
 	const char* m_Title;
 	int m_Width, m_Height;
 	GLFWwindow* m_Window;
-
-	bool m_Closed;
-	float m_mixValuel; // stores how much we're seeing of either textures 
 public:
 	Window(const char* title, int width, int height);
 	~Window();
 	
 	bool closed();
 	
-	void init();
-	void clear();
+	bool init();
+	void clear(float red, float green, float blue, float alpha);
 	void update();
 
 	

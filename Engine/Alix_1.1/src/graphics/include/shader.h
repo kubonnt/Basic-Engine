@@ -2,6 +2,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
+#include <stb_image.h>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
@@ -22,6 +23,8 @@ public:
 	Shader(const char* vertexPath, const char* fragmentPath);
 	// use/activate shader
 	void use();
+	// utility to load textures
+	unsigned int loadAndGenerateTexture(const char* filePath);
 	// utility uniform functions
 	void setBool(const std::string &name, bool value) const;
 	void setInt(const std::string &name, int value) const;
