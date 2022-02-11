@@ -35,10 +35,10 @@ bool Window::init()
 		return -1;
 	}
 
-	glfwMakeContextCurrent(m_Window);
-	glfwSetFramebufferSizeCallback(m_Window, framebuffer_size_callback); 
-	glfwSetCursorPosCallback(m_Window, mause_callback);	// TODO: Create those functions
-	glfwSetScrollCallback(m_Window, scroll_callback);
+	//glfwMakeContextCurrent(m_Window);
+	//glfwSetFramebufferSizeCallback(m_Window, framebuffer_size_callback); 
+	//glfwSetCursorPosCallback(m_Window, mause_callback);	// TODO: Create those functions
+	//glfwSetScrollCallback(m_Window, scroll_callback);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{

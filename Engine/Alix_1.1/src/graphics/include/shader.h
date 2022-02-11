@@ -21,10 +21,11 @@ public:
 
 	// Constructor reads and builds the shader
 	Shader(const char* vertexPath, const char* fragmentPath);
+	~Shader() {  }
 	// use/activate shader
 	void use();
 	// utility to load textures
-	unsigned int loadAndGenerateTexture(const char* filePath);
+	void loadAndGenerateTexture(const char* filePath);
 	// utility uniform functions
 	void setBool(const std::string &name, bool value) const;
 	void setInt(const std::string &name, int value) const;
