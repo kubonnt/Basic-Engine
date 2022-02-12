@@ -45,6 +45,8 @@ bool Window::init()
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
 	}
+
+	return true;
 }
 
 void Window::clear(float red, float green, float blue, float alpha)

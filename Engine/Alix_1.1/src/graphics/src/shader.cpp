@@ -87,11 +87,10 @@ void Shader::use()
 	glUseProgram(ID);
 }
 
-void Shader::loadAndGenerateTexture(const char* filePath)
+unsigned int Shader::loadAndGenerateTexture(const char* filePath)
 {
-	unsigned int texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
+	glGenTextures(1, &m_Texture);
+	glBindTexture(GL_TEXTURE_2D, m_Texture); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
 	// Setting the texture wrapping parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -109,13 +108,12 @@ void Shader::loadAndGenerateTexture(const char* filePath)
 		{
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 			glGenerateMipmap(GL_TEXTURE_2D);
-			glBindTexture(GL_TEXTURE_2D, texture);
+			glBindTexture(GL_TEXTURE_2D, m_Texture);
+			return m_Texture;
 		}
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture);
+		return m_Texture;
 	}
 	else
 	{
@@ -123,6 +121,12 @@ void Shader::loadAndGenerateTexture(const char* filePath)
 	}
 	// Freeing image memory
 	stbi_image_free(data);
+}
+
+void Shader::bind()
+{
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_Texture);
 }
 
 void Shader::setBool(const std::string& name, bool value) const

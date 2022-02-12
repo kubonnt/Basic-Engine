@@ -27,11 +27,13 @@ private:
 	glm::mat4 m_View;
 	glm::mat4 m_Model;
 public:
-	Renderer(float renderable[]);
+	Renderer(float& renderable);
 	~Renderer();
 
-	void init(float* renderable);
-	void setProjection(const float& fov, const float& aspect);
-	void setView();
-	void setModel(const glm::vec3& position);
+	void init(float& renderable);
+	void bind();
+	void draw(Shader& shader);
+	void setProjection(const Shader& shader, const float& fov, const float& aspect);
+	void setView(const Shader& shader, const glm::vec3& cameraPos, const glm::vec3& cameraFront, const glm::vec3& cameraUp);
+	void setModel();
 };
