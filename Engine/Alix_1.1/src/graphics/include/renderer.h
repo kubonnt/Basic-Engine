@@ -13,27 +13,30 @@
 /*
 	All the rendering stuff. Firstly move it here from the main.cpp
 	and then implementing all in this file
+	Add namespaces!!!
 */
-
-class Renderer
+namespace graphics
 {
-private:
-	unsigned int m_VAO;
-	unsigned int m_VBO;
-	float* m_Renderable;
-	float m_Fov;
-	float m_Aspect;
-	glm::mat4 m_Projection;
-	glm::mat4 m_View;
-	glm::mat4 m_Model;
-public:
-	Renderer(float& renderable);
-	~Renderer();
+	class Renderer
+	{
+	private:
+		unsigned int m_VAO;
+		unsigned int m_VBO;
+		float* m_Renderable;
+		float m_Fov;
+		float m_Aspect;
+		glm::mat4 m_Projection;
+		glm::mat4 m_View;
+		glm::mat4 m_Model;
+	public:
+		Renderer(float& renderable);
+		~Renderer();
 
-	void init(float& renderable);
-	void bind();
-	void draw(Shader& shader);
-	void setProjection(const Shader& shader, const float& fov, const float& aspect);
-	void setView(const Shader& shader, const glm::vec3& cameraPos, const glm::vec3& cameraFront, const glm::vec3& cameraUp);
-	void setModel();
-};
+		void init(float& renderable);
+		void bind();
+		void draw(Shader& shader, glm::vec3 positions[]);
+		void setProjection(const Shader& shader, const float& fov, const float& aspect);
+		void setView(const Shader& shader, const glm::vec3& cameraPos, const glm::vec3& cameraFront, const glm::vec3& cameraUp);
+		//void setModel(const Shader& shader, glm::vec3 positions[]);
+	};
+}

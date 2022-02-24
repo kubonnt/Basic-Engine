@@ -11,6 +11,8 @@
 
 #include <iostream>
 
+using namespace graphics;
+
 unsigned int SCR_WIDTH = 800;
 unsigned int SCR_HEIGHT = 600;
 
@@ -37,7 +39,7 @@ void processInput(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
-	
+
 	const float cameraSpeed = static_cast<float>(10.0f * deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		cameraPos += cameraSpeed * cameraFront;
@@ -176,8 +178,8 @@ int main(int argc, char** argv)
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mause_callback);
 	glfwSetScrollCallback(window, scroll_callback);
-	
-	 
+
+
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
@@ -187,7 +189,7 @@ int main(int argc, char** argv)
 	glEnable(GL_DEPTH_TEST);
 
 	Shader ourShader("src/shaders/vertexShader.glsl", "src/shaders/fragmentShader.glsl");
-	
+
 	unsigned int VBO, VAO;
 	glGenVertexArrays(1, &VAO); // We can generate multiple VAOs or buffers at the same time glGenVertexArrays(1, VAOs);
 	glGenBuffers(1, &VBO);
@@ -203,12 +205,13 @@ int main(int argc, char** argv)
 	// texture attribute
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
-	
-	unsigned int texture1 = TextureLoader::loadAndGenerateTexture("C:\\Dev\\Alix_1.1\\textures\\container.jpg");   
+
+	ourShader.loadAndGenerateTexture("C:\\Dev\\Alix_1.1\\textures\\container.jpg");
+	//unsigned int texture1 = TextureLoader::loadAndGenerateTexture("C:\\Dev\\Alix_1.1\\textures\\container.jpg");
 	//unsigned int texture2 = TextureLoader::loadAndGenerateTexture("C:\\Dev\\Alix_1.1\\textures\\awesomeface.png");
-	
+
 	ourShader.use();
-	ourShader.setInt("texture1", 0); 
+	ourShader.setInt("texture1", 0);
 	//ourShader.setInt("texture2", 1);
 
 	// projection matrix
@@ -234,8 +237,9 @@ int main(int argc, char** argv)
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture1);
+		ourShader.bind();
+		//glActiveTexture(GL_TEXTURE0);
+		//glBindTexture(GL_TEXTURE_2D, texture1);
 		//glActiveTexture(GL_TEXTURE1);
 		//glBindTexture(GL_TEXTURE_2D, texture2);
 
@@ -246,7 +250,7 @@ int main(int argc, char** argv)
 		glm::mat4 view;
 		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		ourShader.setMat4("view", view);
-		
+
 		glBindVertexArray(VAO);
 
 		for (unsigned int i = 0; i < 10; i++)
