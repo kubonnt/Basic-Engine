@@ -1,1 +1,1 @@
-Studying computer graphics and developing a game engine/renderer.
+Studying computer graphics and (maybe) developing a game engine/renderer.
