@@ -31,8 +31,8 @@ namespace graphics
 		bool m_Closed;
 		const char* m_Title;
 		int m_Width, m_Height;
-		GLFWwindow* m_Window;
 	public:
+		GLFWwindow* m_Window;
 		glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 		glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 		glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -47,15 +47,14 @@ namespace graphics
 		Window(const char* title, int width, int height);
 		~Window();
 
+		bool closed() const;
+		bool init();
+		void clear(float red, float green, float blue, float alpha) const;
+		void update();
 		void processInput();
+
+		void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 		void mause_callback(GLFWwindow* window, double xposIn, double yposIn);
 		void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-
-		bool closed();
-		bool init();
-		void clear(float red, float green, float blue, float alpha);
-		void update();
-
-
 	};
 }

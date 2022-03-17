@@ -14,7 +14,7 @@ namespace graphics
 		glfwTerminate();
 	}
 
-	bool Window::closed()
+	bool Window::closed() const
 	{
 		return glfwWindowShouldClose(m_Window);
 	}
@@ -51,7 +51,7 @@ namespace graphics
 		return true;
 	}
 
-	void Window::clear(float red, float green, float blue, float alpha)
+	void Window::clear(float red, float green, float blue, float alpha) const
 	{
 		glClearColor(red, green, blue, alpha);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -66,7 +66,7 @@ namespace graphics
 	float deltaTime = 0.0f;
 	float lastFrame = 0.0f;
 
-	void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+	void Window::framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	{
 		glViewport(0, 0, width, height);
 	}
