@@ -11,15 +11,22 @@
 
 #include "../include/shader.h"
 /*
-	All the rendering stuff. Firstly move it here from the main.cpp
-	and then implementing all in this file
-	Add namespaces!!!
+	Rendering everything here, including window.
+	Gotta think of some good structure and opengl states modifications
 */
+
+class GLFWwindow;
+
 namespace graphics
 {
 	class Renderer
 	{
 	private:
+		GLFWwindow* m_Window;
+		unsigned int m_Width;
+		unsigned int m_Height;
+		const char* m_Title;
+
 		unsigned int m_VAO;
 		unsigned int m_VBO;
 		float* m_Renderable;
@@ -29,10 +36,10 @@ namespace graphics
 		glm::mat4 m_View;
 		glm::mat4 m_Model;
 	public:
-		Renderer(float& renderable);
+		Renderer() = default;
 		~Renderer();
 
-		void init(float& renderable);
+		void init(GLFWwindow* window);
 		void bind();
 		void draw(Shader& shader, glm::vec3 positions[]);
 		void setProjection(const Shader& shader, const float& fov, const float& aspect);
