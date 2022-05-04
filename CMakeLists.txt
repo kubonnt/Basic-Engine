@@ -4,12 +4,12 @@ project(Engine LANGUAGES CXX)
 
 # Add source files
 file(GLOB_RECURSE SOURCE_FILES
-        ${CMAKE_SOURCE_DIR}/Engine/Alix_1.1/main.cpp
-        ${CMAKE_SOURCE_DIR}/Engine/Alix_1.1/graphics/src/*.cpp)
+        ${CMAKE_SOURCE_DIR}/Engine/Basic-Engine/main.cpp
+        ${CMAKE_SOURCE_DIR}/Engine/Basic-Engine/graphics/src/*.cpp)
 
 # Add header files
 file(GLOB_RECURSE HEADER_FILES
-         ${CMAKE_SOURCE_DIR}/Engine/Alix_1.1/graphics/include/*.h)
+         ${CMAKE_SOURCE_DIR}/Engine/Basic-Engine/graphics/include/*.h)
 
 # Add .lib files
 link_directories(${CMAKE_SOURCE_DIR}/OpenGL/lib)
@@ -21,30 +21,32 @@ configure_file(src/helpers/RootDir.h.in src/helpers/RootDir.h)
 add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 # Code to find external libs
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "C:/Dev/Basic-Engine/cmake")
 
 # OpenGL
 find_package(OpenGL REQUIRED)
 # GLM
-find_package(GLM REQUIRED)
+find_package(glm REQUIRED)
 message(STATUS "GLM included at ${GLM_INCLUDE_DIR}")
 # GLFW
-find_package(GLFW3 REQUIRED)
+find_package(glfw3 REQUIRED)
 message(STATUS "GLFW included at ${GLFW3_INCLUDE_DIR}")
 # ASSIMP tbd
 
 # Header only libraries
 # STB_IMAGE
-add_library(STB_IMAGE "${CMAKE_SOURCE_DIR}/Engine/Alix_1.1/src/ext/stb_image.cpp")
+add_library(STB_IMAGE "${CMAKE_SOURCE_DIR}/Engine/Basic-Engine/src/ext/stb_image.cpp")
 # GLAD
-add_library(GLAD "${CMAKE_SOURCE_DIR}/Engine/Alix_1.1/src/ext/glad.c")
+add_library(GLAD "${CMAKE_SOURCE_DIR}/Engine/Basic-Engine/src/ext/glad.c")
 
-set(LIBS glfw3 opengl32 STB_IMAGE GLAD)
+set(LIBS ${GLFW3_LIBRARY} ${OPENGL_LIBRARY} STB_IMAGE GLAD)
 
 # Define include DIRs
 include_directories(
-        "${CMAKE_SOURCE_DIR}/Engine/Alix_1.1/graphics/src/"
-        "${CMAKE_SOURCE_DIR}/Engine/Alix_1.1/graphics/include/"
+        "${CMAKE_SOURCE_DIR}/Engine/Basic-Engine/graphics/src/"
+        "${CMAKE_SOURCE_DIR}/Engine/Basic-Engine/graphics/include/"
+        "${CMAKE_SOURCE_DIR/OpenGL/include/glad}"
+        "${CMAKE_SOURCE_DIR/OpenGL/include/glm}"
 )
 
 # Define link libs

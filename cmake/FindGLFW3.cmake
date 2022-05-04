@@ -1,9 +1,9 @@
 set(_glfw3_HEADER_SEARCH_DIRS
-"${CMAKE_SOURCE_DIR}/OpenGL/include/GLFW"
+"C:/Dev/Basic-Engine/OpenGL/include/GLFW"
 )
 
 set(_glfw3_LIB_SEARCH_DIRS
-"C:/Dev/Alix_1.1/OpenGL/lib"
+"${CMAKE_SOURCE_DIR}/OpenGL/lib"
 )
 
 # Check environment for root search directory
@@ -26,4 +26,4 @@ find_path(GLFW3_INCLUDE_DIR "GLFW/glfw3.h"
 find_library(GLFW3_LIBRARY names glfw3 glfw
             paths ${_glfw3_LIB_SEARCH_DIRS})
 include(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(GLFW3 DEFAULT_MSG GLFW3_LIBRARY GLFW3_INCLUDE_DIR)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(glfw3 DEFAULT_MSG GLFW3_LIBRARY GLFW3_INCLUDE_DIR)

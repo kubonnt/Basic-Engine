@@ -1,13 +1,16 @@
 .git/
+.vscode/
 glfw-3.3.5/
 build/
 OpenGL/
 Engine/.vs/
 Engine/x64/
-Engine/Alix_1.1/x64/
-Engine/Alix_1.1/Alix_1.1.vcxproj
-Engine/ALix_1.1/Alix_1.1.vcxproj.filters
-Engine/Alix_1.1/Alix_1.1.vcxproj.user
+Engine/Basic-Engine/x64/
+Engine/Basic-Engine/Alix_1.1.vcxproj
+Engine/Basic-Engine/Alix_1.1.vcxproj.filters
+Engine/Basic-Engine/Alix_1.1.vcxproj.user
+
+*.code-workspace
 
 *.sln
 
