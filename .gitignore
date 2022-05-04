@@ -6,22 +6,11 @@ OpenGL/
 Engine/.vs/
 Engine/x64/
 Engine/Basic-Engine/x64/
+# Only two files in the ext dir: glad.c and stb_image.cpp
 Engine/Basic-Engine/src/ext/
 Engine/Basic-Engine/Alix_1.1.vcxproj
 Engine/Basic-Engine/Alix_1.1.vcxproj.filters
 Engine/Basic-Engine/Alix_1.1.vcxproj.user
-
-Engine/Basic-Engine/src/graphics/include/indexBuffer.h
-Engine/Basic-Engine/src/graphics/include/renderer.h
-Engine/Basic-Engine/src/graphics/include/vertexArray.h
-Engine/Basic-Engine/src/graphics/include/vertexBuffer.h
-Engine/Basic-Engine/src/graphics/include/window.h
-
-Engine/Basic-Engine/src/graphics/src/indexBuffer.cpp
-Engine/Basic-Engine/src/graphics/src/renderer.cpp
-Engine/Basic-Engine/src/graphics/src/vertexArray.cpp
-Engine/Basic-Engine/src/graphics/src/vertexBuffer.cpp
-Engine/Basic-Engine/src/graphics/src/window.cpp
 
 *.code-workspace
 
