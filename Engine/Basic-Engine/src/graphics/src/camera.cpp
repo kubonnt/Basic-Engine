@@ -27,7 +27,7 @@ namespace camera
         return glm::lookAt(Position, Position + Front, Up);
     }
 
-    void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime, bool isShiftPressed)
+    void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
     {
         float velocity = MovementSpeed * deltaTime;
         if (direction == Camera_Movement::FORWARD)

@@ -12,7 +12,7 @@ const float YAW = -90.0f;
 const float PITCH = 0.0f;
 const float SPEED = 2.5f;
 const float SENSITIVITY = 0.1f;
-const float ZOOM = 45.0f;
+const float ZOOM = 60.0f;
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum class Camera_Movement {
@@ -55,7 +55,7 @@ namespace camera
         glm::mat4 GetViewMatrix();
 
         // processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
-        void ProcessKeyboard(Camera_Movement direction, float deltaTime, bool isShiftPressed = false);
+        void ProcessKeyboard(Camera_Movement direction, float deltaTime);
 
         // processes input received from a mouse input system. Expects the offset value in both the x and y direction.
         void ProcessMouseMovement(float xoffset, float yoffset, unsigned int screen_width, unsigned int screen_height, bool constrainPitch = true);

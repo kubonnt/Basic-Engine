@@ -10,11 +10,11 @@ endif()
 
 # Put user specified location at the beginning of the search
 if(GLM_ROOT_DIR)
-  set(_glm_HEADER_SEARCH_DIRS ${GLM_ROOT_DIR} "${GLM_ROOT_DIR}/include" ${_glm_HEADER_SEARCH_DIRS})
+  set(_glm_HEADER_SEARCH_DIRS ${GLM_ROOT_DIR} "${GLM_ROOT_DIR}/" ${_glm_HEADER_SEARCH_DIRS})
 endif()
 
 # Locate header 
-find_path(GLM_INCLUDE_DIR names glm.hpp
+find_path(GLM_INCLUDE_DIR "glm.hpp"
           paths ${_glm_HEADER_SEARCH_DIRS})
 include(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(glm DEFAULT_MSG GLM_INCLUDE_DIR)

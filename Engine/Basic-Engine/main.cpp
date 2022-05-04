@@ -19,8 +19,8 @@ void processInput(GLFWwindow* window);
 using namespace graphics;
 using namespace camera;
 
-unsigned int SCR_WIDTH = 1600;
-unsigned int SCR_HEIGHT = 900;
+static constexpr unsigned int SCR_WIDTH = 1600;
+static constexpr unsigned int SCR_HEIGHT = 900;
 
 Camera cam(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f), YAW, PITCH);
 float lastX = SCR_WIDTH / 2.0f;
