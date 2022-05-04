@@ -3,6 +3,7 @@
 namespace graphics
 {
 	VertexArray::VertexArray(const unsigned int* data, unsigned int size, unsigned int index, unsigned int offset, unsigned int position)
+		: m_Count(size)
 	{
 		// It needs some refactoring. Right now everything is fixed but must be flexible, movable, adjustable
 		glGenVertexArrays(1, &m_RendererID); // We can generate multiple VAOs or buffers at the same time glGenVertexArrays(1, VAOs);

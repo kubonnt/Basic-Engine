@@ -79,7 +79,7 @@ namespace graphics
 	{
 		// TODO: make this method accept: what to draw, where etc
 		// It's here just to test some stuff. In the future there will be some proper functions
-		for (unsigned int i = 0; i < 10; i++)
+		for (unsigned int i = 0; i < 10; ++i)
 		{
 			glm::mat4 model = glm::mat4(1.0f);
 			model = glm::translate(model, positions[i]);
