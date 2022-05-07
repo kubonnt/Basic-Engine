@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <vector>
+#include <iostream>
 
 // Default camera values
 const float YAW = -90.0f;
@@ -58,7 +59,10 @@ namespace camera
         void ProcessKeyboard(Camera_Movement direction, float deltaTime);
 
         // processes input received from a mouse input system. Expects the offset value in both the x and y direction.
-        void ProcessMouseMovement(float xoffset, float yoffset, unsigned int screen_width, unsigned int screen_height, bool constrainPitch = true);
+        void ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch = true);
+
+        // processes moving the camera in space using only right mouse button 
+        //void ProcessMouseMove();
 
         // processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
         void ProcessMouseScroll(float yoffset);

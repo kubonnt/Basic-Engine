@@ -252,8 +252,6 @@ void processInput(GLFWwindow* window)
 
 void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 {
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
 	float xpos = static_cast<float>(xposIn);
 	float ypos = static_cast<float>(yposIn);
 
@@ -266,12 +264,17 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 
 	float xoffset = xpos - lastX;
 	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
-	
+
 	lastX = xpos;
 	lastY = ypos;
-	
-	cam.ProcessMouseMovement(xoffset, yoffset, SCR_WIDTH, SCR_HEIGHT);
 
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+	{
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+		cam.ProcessMouseMovement(xoffset, yoffset);
+	}
+	else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE) glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)

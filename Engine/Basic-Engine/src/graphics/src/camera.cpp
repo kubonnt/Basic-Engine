@@ -44,7 +44,7 @@ namespace camera
             Position -= Up * velocity;
     }
 
-    void Camera::ProcessMouseMovement(float xoffset, float yoffset, unsigned int screen_width, unsigned int screen_height, bool constrainPitch)
+    void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch)
     {
         xoffset *= MouseSensitivity;
         yoffset *= MouseSensitivity;
@@ -61,18 +61,23 @@ namespace camera
                 Pitch = -89.0f;
         }
         
-
         // update Front, Right and Up Vectors using the updated Euler angles
         updateCameraVectors();
     }
 
     void Camera::ProcessMouseScroll(float yoffset)
     {
+        std::cout << yoffset << std::endl;
         Zoom -= (float)yoffset;
+        std::cout << Zoom << std::endl;
         if (Zoom < 1.0f)
-            Zoom = 1.0f;
+        {
+          Zoom = 1.0f;
+        }
         if (Zoom > 45.0f)
-            Zoom = 45.0f;
+        {
+          Zoom = 45.0f;
+        }
     }
 
     void Camera::updateCameraVectors()
