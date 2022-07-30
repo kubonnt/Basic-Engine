@@ -18,6 +18,12 @@ namespace ECS
 	typedef unsigned int EntityIndex;
 	typedef unsigned int EntityVersion;	
 
+	inline bool IsEntityValid(EntityID id)
+	{
+		// Check if the index is a valid index
+		return (id >> 32) != EntityIndex(-1);
+	}
+
 	template <class T>
 	int GetId()
 	{
@@ -91,8 +97,6 @@ namespace ECS
 		inline EntityIndex GetEntityIndex(EntityID id);
 
 		inline EntityVersion GetEntityVersion(EntityID id);
-
-		inline bool IsEntityValid(EntityID id);
 
 #define INVALID_ENTITY CreateEntityId(EntityIndex(-1), 0)
 	};

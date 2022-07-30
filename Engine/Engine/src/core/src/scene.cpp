@@ -108,12 +108,6 @@ namespace ECS
 		// Cast to a 32 bit int to get version number losing the top 32 bits
 		return static_cast<EntityVersion>(id);
 	}
-
-	inline bool Scene::IsEntityValid(EntityID id)
-	{
-		// Check if the index is a valid index
-		return (id >> 32) != EntityIndex(-1);
-	}
 }
 
 int main(int argc, char *argv[])
