@@ -75,25 +75,7 @@ float vertices[] = {
 		-0.5f,  0.5f,  0.5f,
 		-0.5f,  0.5f, -0.5f,
 };
-/*
-unsigned int indices[] = {
-		0, 1, 3, // first triangle
-		1, 2, 3  // second triangle
-};
 
-glm::vec3 cubePositions[] = {
-	glm::vec3(0.0f,  0.0f,  0.0f),
-	glm::vec3(2.0f,  5.0f, -15.0f),
-	glm::vec3(-1.5f, -2.2f, -2.5f),
-	glm::vec3(-3.8f, -2.0f, -12.3f),
-	glm::vec3(2.4f, -0.4f, -3.5f),
-	glm::vec3(-1.7f,  3.0f, -7.5f),
-	glm::vec3(1.3f, -2.0f, -2.5f),
-	glm::vec3(1.5f,  2.0f, -2.5f),
-	glm::vec3(1.5f,  0.2f, -1.5f),
-	glm::vec3(-1.3f,  1.0f, -1.5f)
-};
-*/
 int main(int argc, char** argv)
 {
 	glfwInit();
@@ -181,7 +163,6 @@ int main(int argc, char** argv)
 		lightShader.setMat4("model", model);
 
 		//lightShader.bind();
-
 		// render the cube 
 		glBindVertexArray(cubeVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -221,6 +202,7 @@ void processInput(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
+	// Faster movement
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 	{
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -236,6 +218,7 @@ void processInput(GLFWwindow* window)
 		if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
 			cam.ProcessKeyboard(Camera_Movement::DOWN, deltaTime * 4);
 	}
+	// Normal pace movement
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		cam.ProcessKeyboard(Camera_Movement::FORWARD, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -275,6 +258,8 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 		cam.ProcessMouseMovement(xoffset, yoffset);
 	}
 	else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE) glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) cam.printMousePos(lastX, lastY);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)

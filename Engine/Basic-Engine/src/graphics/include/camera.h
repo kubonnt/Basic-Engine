@@ -16,13 +16,21 @@ const float SENSITIVITY = 0.1f;
 const float ZOOM = 60.0f;
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
-enum class Camera_Movement {
-    FORWARD,
-    BACKWARD,
-    LEFT,
-    RIGHT,
-    UP,
-    DOWN    
+enum class Camera_Movement 
+{
+  FORWARD,
+  BACKWARD,
+  LEFT,
+  RIGHT,
+  UP,
+  DOWN    
+};
+
+enum class Mouse_Buttons 
+{
+  LEFT,
+  RIGHT,
+  MIDDLE
 };
 
 namespace camera
@@ -66,6 +74,11 @@ namespace camera
 
         // processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
         void ProcessMouseScroll(float yoffset);
+
+        // processes input recived from mouse buttons
+        void ProccessMouseButtons(Mouse_Buttons button, double xPos, double yPos);
+
+        void printMousePos(double xPos, double yPos);
 
     private:
         // calculates the front vector from the Camera's (updated) Euler Angles

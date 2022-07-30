@@ -80,6 +80,12 @@ namespace camera
         }
     }
 
+    void Camera::ProccessMouseButtons(Mouse_Buttons button, double xPos, double yPos)
+    {
+      // get positions, seve them to variables, check what mb pressed -> right ? let user move the camera : do nothing for now 
+
+    }
+
     void Camera::updateCameraVectors()
     {
         // calculate the new Front vector
@@ -91,5 +97,10 @@ namespace camera
         // also re-calculate the Right and Up vector
         Right = glm::normalize(glm::cross(Front, WorldUp));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
         Up = glm::normalize(glm::cross(Right, Front));
+    }
+
+    void Camera::printMousePos(double xPos, double yPos)
+    {
+      std::cout << "Mouse position X: " << xPos << "\n" << "Mouse Position Y: " << yPos << std::endl;
     }
 }
