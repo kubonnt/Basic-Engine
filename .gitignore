@@ -16,6 +16,10 @@ Engine/Basic-Engine/Alix_1.1.vcxproj.user
 
 *.code-workspace
 
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
 *.sln
 
 w# Prerequisites
