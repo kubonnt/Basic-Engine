@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "../include/scene.h"
+#include "../include/sceneView.h"
 
 int m_componentCounter = 0;
 
@@ -110,7 +111,16 @@ namespace ECS
 	}
 }
 
+/*---------------------------- Just for debugging ----------------------------------*/
 int main(int argc, char *argv[])
 {
+	/* End goal is to have smth like this */
+	/*
+	for (EntityID ent : SceneView<Transform, Shape>(scene))
+	{
+		doSomeWork();
+	}
+	*/
+
 	printf("TransformComponent ID: %i\n", ECS::GetId<ECS::TransformComponent>());
 }
