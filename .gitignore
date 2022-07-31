@@ -14,6 +14,8 @@ Engine/Basic-Engine/Alix_1.1.vcxproj
 Engine/Basic-Engine/Alix_1.1.vcxproj.filters
 Engine/Basic-Engine/Alix_1.1.vcxproj.user
 
+textures/
+
 .ccls-cache
 
 *.code-workspace
