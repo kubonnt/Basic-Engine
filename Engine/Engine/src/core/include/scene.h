@@ -15,6 +15,22 @@ namespace ECS
 	typedef std::bitset<MAX_COMPONENTS> ComponentMask;
 	
 	// For destroying and creating entities
+
+	/*
+	------------------------ Creating and destroying entities -----------------------
+	When creating entities we push them back to the Scene::entities vector.
+	The problem occurs when we want to destroy them. We would remove the entity from
+	the vector and that would be it. The problem is, when we create a new entity
+	afterward, it'll be in the same slot as the previously deleted entity.
+	A reference to the old entity could attempt to access data, and end up
+	accidentally accessing data from the new entity. To protect against that
+	I'll add an extra piece of info to entity IDs, a version number.
+
+	We have a 64 bit entity ID, so we'll store the index of the entity in the
+	top 32 bits, and the version number in the bottom 32 bits.
+	---------------------------------------------------------------------------------
+	*/
+
 	typedef unsigned int EntityIndex;
 	typedef unsigned int EntityVersion;	
 
@@ -41,12 +57,12 @@ namespace ECS
 	struct Scene
 	{
 		// All the info we need about each entity
-		struct EntityDesc
+		struct Entity
 		{
 			EntityID id;
 			ComponentMask mask;
 		};
-		std::vector<EntityDesc> entities;
+		std::vector<Entity> entities;
 	
 		std::vector<MemoryPool::ComponentPool::ComponentPool> componentPools;
 
@@ -67,20 +83,6 @@ namespace ECS
 		template <typename T>
 		T* GetComponent(EntityID id);
 
-		/*
-		------------------------ Creating and destroying entities -----------------------
-		When creating entities we push them back to the Scene::entities vector.
-		The problem occurs when we want to destroy them. We would remove the entity from
-		the vector and that would be it. The problem is, when we create a new entity
-		afterward, it'll be in the same slot as the previously deleted entity.
-		A reference to the old entity could attempt to access data, and end up
-		accidentally accessing data from the new entity. To protect against that
-		I'll add an extra piece of info to entity IDs, a version number.
-
-		We have a 64 bit entity ID, so we'll store the index of the entity in the
-		top 32 bits, and the version number in the bottom 32 bits.
-		---------------------------------------------------------------------------------
-		*/
 		std::vector<EntityIndex> freeEntities;
 		/*
 		-----------------------------------------------------------------------------------------------------
