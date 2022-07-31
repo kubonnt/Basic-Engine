@@ -8,6 +8,13 @@
 
 extern int m_componentCounter;
 
+// !!! Test purpose only !!! 
+struct TransformComponent
+{
+	float position{ 1.f };
+	float rotation{ 2.f };
+};
+
 namespace ECS
 {
 	typedef unsigned long long EntityID;
@@ -46,13 +53,6 @@ namespace ECS
 		static int m_componentId = ++m_componentCounter;
 		return m_componentId;
 	}
-
-	// !!! Test purpose only !!! 
-	struct TransformComponent
-	{
-		float position{ 1.f };
-		float rotation{ 2.f };
-	};
 
 	struct Scene
 	{
