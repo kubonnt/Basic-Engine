@@ -53,7 +53,7 @@ namespace ECS
 		EntityID NewEntity();
 
 		/*
-		// Might delete that method in the future - needed this for debug and research purposes
+		// Might delete that method in the future - needed this for debug/research purposes
 		template <typename T>
 		void AssignComponent(EntityID id);
 		*/
@@ -70,7 +70,7 @@ namespace ECS
 		/*
 		------------------------ Creating and destroying entities -----------------------
 		When creating entities we push them back to the Scene::entities vector.
-		The problem occurs when we want to destroy them. We'd remove the entity from
+		The problem occurs when we want to destroy them. We would remove the entity from
 		the vector and that would be it. The problem is, when we create a new entity
 		afterward, it'll be in the same slot as the previously deleted entity.
 		A reference to the old entity could attempt to access data, and end up

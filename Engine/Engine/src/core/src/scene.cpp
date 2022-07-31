@@ -1,7 +1,4 @@
-#include <iostream>
-
 #include "../include/scene.h"
-#include "../include/sceneView.h"
 
 int m_componentCounter = 0;
 
@@ -47,20 +44,20 @@ namespace ECS
 	T* Scene::AssignComponent(EntityID id)
 	{
 		// Ensures we are not accessing entity that has been deleted
-		if (entities[GetEntityIndex(id)].id != id)
+		if (entities[GetEntityIndex(id)].id != id) 
 			return;
 
 		int componentId = GetId<T>();
 
 		// First we check if there is a pool for this component
 		if (componentPools.size() <= componentId) // Not enaugh component pool, resize the vector and create a new pool for that component
-			componentPools.resize(componentId + 1, nullptr);
+			componentPools.resize(componentId + 1, 0);
 
-		// Second we can use new operator to call the ctor of the component at the correct memory location in the pool
-		if (componentPools[componentId] == nullptr) // New component, make a new pool
+		// Second we can use the new operator to call the ctor of the component at the correct memory location in the pool
+		if (componentPools[componentId] == 0) // New component, make a new pool
 			componentPools[componentId] = new MemoryPool::ComponentPool::ComponentPool(sizeof(T));
 
-		// Looks up the component in the pool and initializes it with new 
+		// Looks up the component in the pool and initializes it with the new 
 		T* poolComponent = new (componentPools[componentId]->get(id)) T();
 
 		// Set the bit for this component to true and return the created component
@@ -111,16 +108,3 @@ namespace ECS
 	}
 }
 
-/*---------------------------- Just for debugging ----------------------------------*/
-int main(int argc, char *argv[])
-{
-	/* End goal is to have smth like this */
-	/*
-	for (EntityID ent : SceneView<Transform, Shape>(scene))
-	{
-		doSomeWork();
-	}
-	*/
-
-	printf("TransformComponent ID: %i\n", ECS::GetId<ECS::TransformComponent>());
-}
