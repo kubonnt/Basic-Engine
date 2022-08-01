@@ -1,12 +1,12 @@
 #ifndef MEMORYPOOL_H
 #define MEMORYPOOL_H
 
+constexpr int MAX_ENTITIES = 32;
+		
 namespace MemoryPool
 {
 	namespace ComponentPool
 	{
-		constexpr int MAX_ENTITIES = 32;
-
 		struct ComponentPool
 		{
 			ComponentPool(size_t elementSize);

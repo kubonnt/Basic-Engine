@@ -8,6 +8,13 @@
 
 extern int m_componentCounter;
 
+typedef unsigned long long EntityID;
+constexpr int MAX_COMPONENTS = 32;
+typedef std::bitset<MAX_COMPONENTS> ComponentMask;
+
+typedef unsigned int EntityIndex;
+typedef unsigned int EntityVersion;
+
 // !!! Test purpose only !!! 
 struct TransformComponent
 {
@@ -17,10 +24,6 @@ struct TransformComponent
 
 namespace ECS
 {
-	typedef unsigned long long EntityID;
-	constexpr int MAX_COMPONENTS = 32;
-	typedef std::bitset<MAX_COMPONENTS> ComponentMask;
-	
 	// For destroying and creating entities
 
 	/*
@@ -38,9 +41,6 @@ namespace ECS
 	---------------------------------------------------------------------------------
 	*/
 
-	typedef unsigned int EntityIndex;
-	typedef unsigned int EntityVersion;	
-
 	inline bool IsEntityValid(EntityID id)
 	{
 		// Check if the index is a valid index
@@ -53,6 +53,8 @@ namespace ECS
 		static int m_componentId = ++m_componentCounter;
 		return m_componentId;
 	}
+	
+	using namespace MemoryPool::ComponentPool;
 
 	struct Scene
 	{
@@ -64,7 +66,7 @@ namespace ECS
 		};
 		std::vector<Entity> entities;
 	
-		std::vector<MemoryPool::ComponentPool::ComponentPool> componentPools;
+		std::vector<ComponentPool*> componentPools;
 
 		EntityID NewEntity();
 
@@ -75,13 +77,60 @@ namespace ECS
 		*/
 
 		template <typename T>
-		void RemoveComponent(EntityID id);
+		T* GetComponent(EntityID id)
+		{
+			// Ensures we are not accessing entity that has been deleted
+			if (entities[GetEntityIndex(id)].id != id)
+				return nullptr;
+
+			int componentId = GetId<T>();
+			// Testing the bitmask before accessing the component pool. If I've removed a component by unsetting its bit, this will prevent me from accessing component's data that's not supposed to be assigned to this entity
+			if (!entities[GetEntityIndex(id)].mask.test(componentId))
+				return nullptr;
+
+			T* poolComponent = static_cast<T*>(componentPools[componentId]->get(GetEntityIndex(id)));
+			return poolComponent;
+		}
 
 		template <typename T>
-		T* AssignComponent(EntityID id);
+		void RemoveComponent(EntityID id)
+		{
+			// Ensures we are not accessing entity that has been deleted
+			if (entities[GetEntityIndex(id)].id != id)
+				return;
 
+			int componentId = GetId<T>();
+			entities[GetEntityIndex(id)].mask.reset(componentId);
+		}
+		
 		template <typename T>
-		T* GetComponent(EntityID id);
+		T* AssignComponent(EntityID id)
+		{
+			// Ensures we are not accessing entity that has been deleted
+			if (entities[GetEntityIndex(id)].id != id)
+				return nullptr;
+
+			int componentId = GetId<T>();
+
+			// First we check if there is a pool for this component
+			if (componentPools.size() <= componentId) // Not enaugh component pool, resize the vector and create a new pool for that component
+			{
+				componentPools.resize(componentId + 1, 0);
+			}
+
+			// Second we can use the new operator to call the ctor of the component at the correct memory location in the pool
+			if (componentPools[componentId] == nullptr) // New component, make a new pool
+			{
+				componentPools[componentId] = new ComponentPool(sizeof(T));
+			}
+
+			// Looks up the component in the pool and initializes it with the new 
+			T* poolComponent = new (componentPools[componentId]->get(id)) T();
+
+			// Set the bit for this component to true and return the created component
+			entities[GetEntityIndex(id)].mask.set(componentId);
+			return poolComponent;
+		}
 
 		std::vector<EntityIndex> freeEntities;
 		/*
@@ -102,6 +151,11 @@ namespace ECS
 
 #define INVALID_ENTITY CreateEntityId(EntityIndex(-1), 0)
 	};
+
+	template Scene* Scene::AssignComponent<Scene>(EntityID id);
+	template Scene* Scene::GetComponent<Scene>(EntityID id);
+	template void Scene::RemoveComponent<Scene>(EntityID id);
+
 }
 
 #endif // !SCENE_H

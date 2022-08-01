@@ -3,7 +3,6 @@
 
 namespace MemoryPool
 {
-	//using namespace ComponentPool
 	namespace ComponentPool
 	{
 		ComponentPool::ComponentPool(size_t inElementSize)

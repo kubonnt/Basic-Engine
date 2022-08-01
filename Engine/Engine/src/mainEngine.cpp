@@ -48,12 +48,13 @@ int main(int argc, char* argv[])
 	for (int i = 0; i < 1; ++i)
 	{
 		scene.NewEntity();
-		//scene.AssignComponent<TransformComponent>(scene.GetEntityIndex(scene.entities[0].id)); 
+		scene.AssignComponent<TransformComponent>(scene.entities[0].id);
 		for (auto ent : SceneView<TransformComponent>(scene))
 		{
 			// world.place(ent);
 		}
 	}
 
+	printf("TransformComponentID: %i\n", GetId<TransformComponent>());
 	printf("EntityID: %i\n", static_cast<int>(scene.GetEntityIndex(scene.entities[0].id)));
 }
