@@ -32,29 +32,22 @@
 /*---------------------------- Just for debugging ----------------------------------*/
 int main(int argc, char* argv[])
 {
-	/* End goal is to have smth like this */
-	/*
-	for (EntityID ent : SceneView<Transform, Shape>(scene))
-	{
-		doSomeWork();
-	}
-	*/
-
 	using namespace ECS;
 	using namespace MemoryPool::ComponentPool;
 	
 	Scene scene;
 
-	for (int i = 0; i < 1; ++i)
+	for (int i = 0; i < 2; ++i)
 	{
 		scene.NewEntity();
 		scene.AssignComponent<TransformComponent>(scene.entities[0].id);
 		for (auto ent : SceneView<TransformComponent>(scene))
 		{
+			printf("TransformComponentID: %i\n", GetId<TransformComponent>());
 			// world.place(ent);
 		}
 	}
 
-	printf("TransformComponentID: %i\n", GetId<TransformComponent>());
 	printf("EntityID: %i\n", static_cast<int>(scene.GetEntityIndex(scene.entities[0].id)));
+	printf("EntityID: %i\n", static_cast<int>(scene.GetEntityIndex(scene.entities[1].id)));
 }

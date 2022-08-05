@@ -77,33 +77,6 @@ namespace ECS
 		*/
 
 		template <typename T>
-		T* GetComponent(EntityID id)
-		{
-			// Ensures we are not accessing entity that has been deleted
-			if (entities[GetEntityIndex(id)].id != id)
-				return nullptr;
-
-			int componentId = GetId<T>();
-			// Testing the bitmask before accessing the component pool. If I've removed a component by unsetting its bit, this will prevent me from accessing component's data that's not supposed to be assigned to this entity
-			if (!entities[GetEntityIndex(id)].mask.test(componentId))
-				return nullptr;
-
-			T* poolComponent = static_cast<T*>(componentPools[componentId]->get(GetEntityIndex(id)));
-			return poolComponent;
-		}
-
-		template <typename T>
-		void RemoveComponent(EntityID id)
-		{
-			// Ensures we are not accessing entity that has been deleted
-			if (entities[GetEntityIndex(id)].id != id)
-				return;
-
-			int componentId = GetId<T>();
-			entities[GetEntityIndex(id)].mask.reset(componentId);
-		}
-		
-		template <typename T>
 		T* AssignComponent(EntityID id)
 		{
 			// Ensures we are not accessing entity that has been deleted
@@ -132,6 +105,33 @@ namespace ECS
 			return poolComponent;
 		}
 
+		template <typename T>
+		T* GetComponent(EntityID id)
+		{
+			// Ensures we are not accessing entity that has been deleted
+			if (entities[GetEntityIndex(id)].id != id)
+				return nullptr;
+
+			int componentId = GetId<T>();
+			// Testing the bitmask before accessing the component pool. If I've removed a component by unsetting its bit, this will prevent me from accessing component's data that's not supposed to be assigned to this entity
+			if (!entities[GetEntityIndex(id)].mask.test(componentId))
+				return nullptr;
+
+			T* poolComponent = static_cast<T*>(componentPools[componentId]->get(GetEntityIndex(id)));
+			return poolComponent;
+		}
+
+		template <typename T>
+		void RemoveComponent(EntityID id)
+		{
+			// Ensures we are not accessing entity that has been deleted
+			if (entities[GetEntityIndex(id)].id != id)
+				return;
+
+			int componentId = GetId<T>();
+			entities[GetEntityIndex(id)].mask.reset(componentId);
+		}
+
 		std::vector<EntityIndex> freeEntities;
 		/*
 		-----------------------------------------------------------------------------------------------------
@@ -152,9 +152,9 @@ namespace ECS
 #define INVALID_ENTITY CreateEntityId(EntityIndex(-1), 0)
 	};
 
-	template Scene* Scene::AssignComponent<Scene>(EntityID id);
-	template Scene* Scene::GetComponent<Scene>(EntityID id);
+	template Scene* Scene::GetComponent<>(EntityID id);
 	template void Scene::RemoveComponent<Scene>(EntityID id);
+	template Scene* Scene::AssignComponent<>(EntityID id);
 
 }
 
