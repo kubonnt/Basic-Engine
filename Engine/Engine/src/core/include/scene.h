@@ -77,6 +77,22 @@ namespace ECS
 		*/
 
 		template <typename T>
+		T* GetComponent(EntityID id)
+		{
+			// Ensures we are not accessing entity that has been deleted
+			if (entities[GetEntityIndex(id)].id != id)
+				return nullptr;
+
+			int componentId = GetId<T>();
+			// Testing the bitmask before accessing the component pool. If I've removed a component by unsetting its bit, this will prevent me from accessing component's data that's not supposed to be assigned to this entity
+			if (!entities[GetEntityIndex(id)].mask.test(componentId))
+				return nullptr;
+
+			T* poolComponent = static_cast<T*>(componentPools[componentId]->get(GetEntityIndex(id)));
+			return poolComponent;
+		}
+
+		template <typename T>
 		T* AssignComponent(EntityID id)
 		{
 			// Ensures we are not accessing entity that has been deleted
@@ -102,22 +118,6 @@ namespace ECS
 
 			// Set the bit for this component to true and return the created component
 			entities[GetEntityIndex(id)].mask.set(componentId);
-			return poolComponent;
-		}
-
-		template <typename T>
-		T* GetComponent(EntityID id)
-		{
-			// Ensures we are not accessing entity that has been deleted
-			if (entities[GetEntityIndex(id)].id != id)
-				return nullptr;
-
-			int componentId = GetId<T>();
-			// Testing the bitmask before accessing the component pool. If I've removed a component by unsetting its bit, this will prevent me from accessing component's data that's not supposed to be assigned to this entity
-			if (!entities[GetEntityIndex(id)].mask.test(componentId))
-				return nullptr;
-
-			T* poolComponent = static_cast<T*>(componentPools[componentId]->get(GetEntityIndex(id)));
 			return poolComponent;
 		}
 
@@ -153,8 +153,8 @@ namespace ECS
 	};
 
 	template Scene* Scene::GetComponent<>(EntityID id);
-	template void Scene::RemoveComponent<Scene>(EntityID id);
 	template Scene* Scene::AssignComponent<>(EntityID id);
+	template void Scene::RemoveComponent<Scene>(EntityID id);
 
 }
 

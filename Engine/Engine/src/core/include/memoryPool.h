@@ -1,6 +1,8 @@
 #ifndef MEMORYPOOL_H
 #define MEMORYPOOL_H
 
+#include <memory>
+
 constexpr int MAX_ENTITIES = 32;
 		
 namespace MemoryPool

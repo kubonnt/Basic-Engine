@@ -9,7 +9,7 @@ namespace MemoryPool
 		{
 			// Allocating enough memory to hold MAX_ENTITIES, each with element size
 			elementSize = inElementSize;
-			poolData = new char[elementSize * MAX_ENTITIES];
+			poolData = new char[(elementSize* MAX_ENTITIES)];
 		}
 
 		ComponentPool::~ComponentPool()
@@ -19,7 +19,8 @@ namespace MemoryPool
 
 		inline void* ComponentPool::get(size_t index)
 		{
-			return poolData + index * elementSize;
+			return poolData + index * MAX_ENTITIES;
+			
 		}
 	}
 }

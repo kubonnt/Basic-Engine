@@ -6,15 +6,14 @@
 /*----------------------------------- Simple overview/to do list -----------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------------*/
 //	ECS:																																																										//
-//		- !!!DONE!!! it has entities, which are unique identifires																														//
-//		- !!!IN PROGRESS!!! it has components, which are plain datatypes whithout behavior 																		//
-//		- !!!TODO!!! entities can contain zero or more components - they can, but found a few problems 												//
-//		- !!!TODO!!! entities can change components dynamically  																															//
-//		- !!!TODO!!! it has systems, which are functions matched with entities that have certain 															//
-//			           set of components - only system atm is the scene, but that's not the plan  															//
-//		-	!!! TODO: FIX !!! When assigning the component, for example TransformComponent it 																	//															
-// 			                  can't see it and I get unresolved external symbol																									//
+//		- !!!IN PROGRESS!!! it has components, which are plain datatypes whithout behavior                                    //
 //																																																													//
+//		- !!!TODO!!! entities can change components dynamically  																															//
+//																																																													//
+//		- !!!TODO!!! it has systems, which are functions matched with entities that have certain 															//
+//			           set of components - only system atm is the scene, but that's not the plan 																//
+//																																																													//
+//		-	!!!TODO!!! a little more memory safe																																								//
 //																																																													//
 // 																																																													//
 //																																																													//
