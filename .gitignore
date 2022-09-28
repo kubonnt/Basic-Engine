@@ -15,6 +15,7 @@ Engine/Basic-Engine/Alix_1.1.vcxproj.filters
 Engine/Basic-Engine/Alix_1.1.vcxproj.user
 
 textures/
+test.txt
 
 .ccls-cache
 
