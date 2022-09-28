@@ -1,4 +1,5 @@
 #include <iostream>
+#include <thread>
 
 #include "core/include/scene.h"
 #include "core/include/sceneView.h"
@@ -11,9 +12,9 @@
 //		- !!!TODO!!! entities can change components dynamically  																															//
 //																																																													//
 //		- !!!TODO!!! it has systems, which are functions matched with entities that have certain 															//
-//			           set of components - only system atm is the scene, but that's not the plan 																//
+//			           set of components - only system atm is the scene 																                        //
 //																																																													//
-//		-	!!!TODO!!! a little more memory safe																																								//
+//		-	!!!TODO!!! more memory safe,	there probably is a memory leak - try to change raw ptrs into smart ones							//
 //																																																													//
 // 																																																													//
 //																																																													//
@@ -36,17 +37,20 @@ int main(int argc, char* argv[])
 	
 	Scene scene;
 
-	for (int i = 0; i < 2; ++i)
-	{
-		scene.NewEntity();
-		scene.AssignComponent<TransformComponent>(scene.entities[0].id);
-		for (auto ent : SceneView<TransformComponent>(scene))
-		{
-			printf("TransformComponentID: %i\n", GetId<TransformComponent>());
-			// world.place(ent);
-		}
-	}
+	scene.NewEntity();
+	scene.NewEntity();
+	scene.AssignComponent<TransformComponent>(scene.GetEntityIndex(scene.entities[0].id));
+	scene.AssignComponent<AnotherComponent>(scene.GetEntityIndex(scene.entities[1].id));
 
-	printf("EntityID: %i\n", static_cast<int>(scene.GetEntityIndex(scene.entities[0].id)));
-	printf("EntityID: %i\n", static_cast<int>(scene.GetEntityIndex(scene.entities[1].id)));
+	printf("TransformComponentID: %i\n", GetId<TransformComponent>());
+	printf("AnotherComponentID: %i\n", GetId<AnotherComponent>());
+
+	printf("Entity %i\n", scene.GetEntityIndex(scene.entities[0].id));
+	printf("Entity %i\n", scene.GetEntityIndex(scene.entities[1].id));
+
+	scene.DestroyEntity(1); 
+	scene.GetComponent<AnotherComponent>(1);
+	printf("Entity %i\n", scene.GetEntityIndex(scene.entities[1].id)); 
+
+	return 0;
 }

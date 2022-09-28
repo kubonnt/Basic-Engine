@@ -16,14 +16,16 @@ namespace ECS
 			entities[newIndex].id = newID;
 			return entities[newIndex].id;
 		}
-		entities.push_back({ CreateEntityId(EntityIndex(entities.size()), 0), ComponentMask() });
+		entities.push_back({ CreateEntityId(EntityID(entities.size()), 0), ComponentMask() });
 		return entities.back().id;
 	}
 
 	void Scene::DestroyEntity(EntityID id)
 	{
-		EntityID newID = CreateEntityId(EntityIndex(-1), GetEntityVersion(id) + 1);
-		entities[GetEntityIndex(id)].id = newID;
+		assert(id < entities.size());
+		EntityID newID = INVALID_ENTITY;
+		entities[id].id = newID;
+		assert(entities[GetEntityIndex(id)].id != id);
 		entities[GetEntityIndex(id)].mask.reset();
 		freeEntities.push_back(GetEntityIndex(id));
 	}
