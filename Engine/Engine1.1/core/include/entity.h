@@ -4,6 +4,7 @@
 #include <bitset>
 #include <queue>
 #include <array>
+#include <memory>
 #include <unordered_map>
 #include <cassert>
 

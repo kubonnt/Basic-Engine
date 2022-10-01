@@ -61,9 +61,12 @@ namespace ECS
 		// each entity has a unique spot.
 		std::array<T, MAX_ENTITIES> m_componentArray;
 
-		// Unordered_map have a performance penalty because when ones want to get the ID
-		// of a component, to grab it from contiguous array, they have to request it from
-		// the unordered_map, which is not contiguous. A good alternative would be to use arrays
+		// Unordered_map have a performance penalty because when you want to get the ID
+		// of a component, to grab it from contiguous array, you have to request it from
+		// the unordered_map, which is not contiguous. A good alternative would be to use arrays.
+		// But the unordered_maps have the nice property of supporting find(), insert(), and delete(), 
+		// which allow for asserting validity without "if(valid)" checks and it's a bit clearer 
+		// than setting array elements to some "INVALID" value.
 
 		// Map from an entity ID to an array index.
 		std::unordered_map<Entity, size_t> m_entityToIndexMap;
@@ -73,5 +76,90 @@ namespace ECS
 
 		// Total size of valid entries in the array
 		size_t m_size;
+	};
+
+	class ComponentManager
+	{
+	public:
+		template<typename T>
+		void RegisterComponent()
+		{
+			const char* typeName = typeid(T).name();
+			
+			assert(m_componentTypes.find(typeName) == m_componentTypes.end() && "Registering component more than once.");
+
+			// Add this component type to the component type map.
+			m_componentTypes.insert({ typeName, m_nextComponentType });
+
+			// Create a ComponentArray pointer and add it to the component arrays map.
+			m_componentArrays.insert({typeName, std::shared_ptr<ComponentArray<T>>()});
+
+			// Increment the value so that the next component registered is different
+			++m_nextComponentType;
+		}
+
+		template<typename T>
+		ComponentType GetComponentType() const
+		{
+			const char* typeName = typeid(T).name();
+
+			assert(m_componentTypes.find(typeName) != m_componentTypes.end() && "Component not registered before use.");
+
+			// Return this component's type - used for creating signatures 
+			return m_componentTypes[typeName];
+		}
+
+		template<typename T>
+		void AddComponent(Entity entity, T component)
+		{
+			// Add component to the array for an entity
+			GetComponentArray<T>()->InsertData(entity, component);
+		}
+
+		template<typename T>
+		void RemoveComponent(Entity entity)
+		{
+			// Remove a component from the array for an entity
+			GetComponentArray<T>()->RemoveData(entity);
+		}
+
+		template<typename T>
+		T& GetComponent(Entity entity) const
+		{
+			// Get a reference to a component from the array for an entity
+			return GetComponentArray<T>()->GetData(entity);
+		}
+
+		void EntityDestroyed(Entity entity) 
+		{
+			// Notify each component array that an entity has been destroyed
+			// If it has a component for that entity, it will be removed
+			for (auto const& pair : m_componentArrays)
+			{
+				auto const& component = pair.second;
+				component->EntityDestroyed(entity);
+			}
+		}
+
+	private:
+		// Map from type string pointer to a component type.
+		std::unordered_map<const char*, ComponentType> m_componentTypes{};
+
+		// Map from type string pointer to a component array.
+		std::unordered_map<const char*, std::shared_ptr<IComponentArray>> m_componentArrays;
+
+		// The component type to be assigned to the next registered component - starting at 0.
+		ComponentType m_nextComponentType{};
+
+		// Function to get the statically casted pointer to the ComponentArray of type T.
+		template<typename T>
+		std::shared_ptr<ComponentArray<T>> GetComponentArray() const
+		{
+			const char* typeName = typeid(T).name();
+			
+			assert(m_componentTypes.find(typeName) != m_componentTypes.end() && "Component not registered before use.");
+
+			return std::static_pointer_cast<ComponentArray<T>>(m_componentArrays[typeName]);
+		}
 	};
 }
