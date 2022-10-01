@@ -6,8 +6,8 @@
 #include <GLFW/glfw3.h>
 #include <stb_image.h>
 
-#include "src/graphics/include/shader.h"
-#include "src/graphics/include/camera.h"
+#include "core/graphics/include/shader.h"
+#include "core/graphics/include/camera.h"
 
 #include <iostream>
 
@@ -105,8 +105,8 @@ int main(int argc, char** argv)
 
 	glEnable(GL_DEPTH_TEST);
 
-	Shader lightShader("src/shaders/vertexShader.glsl", "src/shaders/fragmentShader.glsl");
-	Shader lightCubeShader("src/shaders/lightVertexShader.glsl", "src/shaders/lightFragmentShader.glsl");
+	Shader lightShader("core/shaders/vertexShader.glsl", "core/shaders/fragmentShader.glsl");
+	Shader lightCubeShader("core/shaders/lightVertexShader.glsl", "core/shaders/lightFragmentShader.glsl");
 
 	unsigned int VBO, cubeVAO;
 	glGenVertexArrays(1, &cubeVAO); // We can generate multiple VAOs or buffers at the same time glGenVertexArrays(1, VAOs);
