@@ -6,8 +6,8 @@ OpenGL/
 Engine/.vs/
 Engine/x64/
 Engine/Basic-Engine/x64/
-Engine/Engine/*.vcxproj
-Engine/Engine/x64/
+Engine/Engine1.1/*.vcxproj
+Engine/Engine1.1/x64/
 # Only two files in the ext dir: glad.c and stb_image.cpp
 Engine/Basic-Engine/src/ext/
 Engine/Basic-Engine/Alix_1.1.vcxproj
