@@ -7,14 +7,15 @@
 #include <memory>
 #include <unordered_map>
 #include <cassert>
+#include <typeinfo>
 
 namespace ECS
 {
 	typedef unsigned int Entity; // the Entity which is just and an ID 
 	typedef unsigned char ComponentType;
 
-	constexpr ComponentType MAX_COMPONENTS = 32;
-	constexpr Entity MAX_ENTITIES = 5000;
+	static constexpr ComponentType MAX_COMPONENTS = 32;
+	static constexpr Entity MAX_ENTITIES = 5000;
 
 	typedef std::bitset<MAX_COMPONENTS> Signature;
 	
@@ -30,7 +31,7 @@ namespace ECS
 		Entity CreateEntity();
 		void DestroyEntity(Entity entity);
 		void SetSignature(Entity entity, Signature signature);
-		Signature GetSignature(Entity entity);
+		Signature GetSignature(Entity entity) const;
 
 	private:
 		// Queue of unused entity IDs

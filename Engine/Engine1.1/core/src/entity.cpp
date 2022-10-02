@@ -41,7 +41,7 @@ namespace ECS
 		m_signatures[entity] = signature;
 	}
 
-	Signature EntityManager::GetSignature(Entity entity)
+	Signature EntityManager::GetSignature(Entity entity) const
 	{
 		assert(entity < MAX_ENTITIES && "Entity out of range");
 
