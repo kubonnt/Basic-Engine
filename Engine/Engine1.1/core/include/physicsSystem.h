@@ -1,6 +1,8 @@
 #ifndef PHYSICS_SYSTEM_H
 #define PHYSICS_SYSTEM_H
 
+// Bare bones, simple system and components for testing purposes
+
 #include "../include/components.h"
 #include "../include/entity.h"
 #include "../include/system.h"
