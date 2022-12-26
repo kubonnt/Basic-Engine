@@ -1,1 +1,1 @@
-Taking my time and experimenting with everything gamedev related.
+Taking my time and experimenting with everything.
