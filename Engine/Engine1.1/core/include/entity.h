@@ -7,7 +7,9 @@
 #include <memory>
 #include <unordered_map>
 #include <cassert>
-#include <typeinfo>
+#include <typeinfo> 
+
+#include <core.h>
 
 namespace ECS
 {
@@ -23,7 +25,7 @@ namespace ECS
 	// To define size of arrays later on
 
 
-	class EntityManager
+	class ENGINE_API EntityManager
 	{
 	public:
 		EntityManager();

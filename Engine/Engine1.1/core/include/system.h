@@ -10,7 +10,7 @@ namespace ECS
 {
 	// Every system needs a list of entities, and some logic outside of the system (in the form of manager to maintain the list), so the System class behaves 
 	// as a base class that every system can inherit from, which allows the SystemManager to keep a list of pointers to systems. Inheritance, but not virtual.
-	struct System
+	struct ENGINE_API System
 	{
 		// std::set because each entity is unique, and a set is defined as having every element be unique. Second thing is that every entity is an integer
 		// wchich makes for easy compares when inserting/removing from the set. Removing a specific entity from a list is O(n) because you have to start
@@ -33,7 +33,7 @@ namespace ECS
 	// The Coordinator has pointers to each manager and does some meta-managing between them.
 	class Coordinator;
 
-	class SystemManager
+	class ENGINE_API SystemManager
 	{
 	public:
 		template<typename T>
@@ -100,7 +100,7 @@ namespace ECS
 		std::unordered_map<const char*, std::shared_ptr<System>> m_systems{};
 	};
 
-	class Coordinator
+	class ENGINE_API Coordinator
 	{
 	public:
 		void Init()

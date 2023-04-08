@@ -18,7 +18,7 @@ namespace ECS
 	};
 
 	template<typename T>
-	class ComponentArray : public IComponentArray
+	class ENGINE_API ComponentArray : public IComponentArray
 	{
 	public:
 		void InsertData(Entity entity, T component)
@@ -93,7 +93,7 @@ namespace ECS
 		size_t m_size;
 	};
 
-	class ComponentManager
+	class ENGINE_API ComponentManager
 	{
 	public:
 		template<typename T>

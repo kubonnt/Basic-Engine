@@ -3,6 +3,8 @@
 
 #include <functional>
 
+#include <core.h>
+
 // Properties of a handle: 
 // relocatebilty
 // deletability, ABA problem
@@ -11,11 +13,11 @@
 
 namespace memory
 {
-	struct Handle
-	{
-		static constexpr int INDEX_BITS = 16;
-		static constexpr int COUNTER_BITS = 16;
+	static constexpr int INDEX_BITS = 16;
+	static constexpr int COUNTER_BITS = 16;
 
+	struct ENGINE_API Handle
+	{
 		Handle() : index (0), counter(0) {}
 		Handle(unsigned int i, unsigned int c) : index(i), counter(c) {}
 
@@ -33,8 +35,9 @@ namespace memory
 
 namespace std
 {
+	// Will see in the future if this needs to be a dllexport
 	template<> 
-	struct hash<memory::Handle>
+	struct /* ENGINE_API */ hash<memory::Handle>
 	{
 		size_t operator()(const memory::Handle& size) const noexcept
 		{
