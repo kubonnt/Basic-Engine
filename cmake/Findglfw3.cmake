@@ -1,8 +1,10 @@
 set(_glfw3_HEADER_SEARCH_DIRS
-"C:/Dev/Basic-Engine/OpenGL/include/GLFW"
+"${CMAKE_SOURCE_DIR}/glfw-3.3.5/include"
+"${CMAKE_SOURCE_DIR}/OpenGL/include/GLFW"
 )
 
 set(_glfw3_LIB_SEARCH_DIRS
+"${CMAKE_SOURCE_DIR}/glfw-3.3.5/src"
 "${CMAKE_SOURCE_DIR}/OpenGL/lib"
 )
 

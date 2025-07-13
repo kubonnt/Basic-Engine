@@ -1,5 +1,5 @@
 set(_glm_HEADER_SEARCH_DIRS
-"C:/Dev/Basic-Engine/OpenGL/include/glm"
+"${CMAKE_SOURCE_DIR}/OpenGL/include/glm"
 )
 
 # Check environment variable
@@ -15,7 +15,7 @@ endif()
 
 # Locate header 
 find_path(GLM_INCLUDE_DIR "glm.hpp"
-          paths ${_glm_HEADER_SEARCH_DIRS})
+          PATHS ${_glm_HEADER_SEARCH_DIRS})
 include(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(glm DEFAULT_MSG GLM_INCLUDE_DIR)
 

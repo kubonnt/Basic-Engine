@@ -1,7 +1,11 @@
+#include "core.h"
+
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
 #include <set>
+#include <memory>
+#include <unordered_map>
 
 #include "entity.h"
 #include "components.h"
@@ -175,8 +179,7 @@ namespace ECS
 		}
 
 		template<typename T>
-		void SetSystemSignature(Signature signature)
-		{
+		void SetSystemSignature(const Signature signature) const {
 			m_systemManager->SetSignature<T>(signature);
 		}
 

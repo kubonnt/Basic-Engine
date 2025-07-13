@@ -1,6 +1,7 @@
 #ifndef COMPONENTS_H
 #define COMPONENTS_H
 
+#include "core.h"
 #include "entity.h"
 
 namespace ECS

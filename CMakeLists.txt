@@ -1,7 +1,9 @@
 # It does not work atm
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.10)
 
 project(Engine)
+
+add_definitions(-DPLATFORM_WINDOWS -DBUILD_DLL)
 
 # Add source files
 file(GLOB_RECURSE SOURCE_FILES
@@ -23,13 +25,15 @@ include_directories(${CMAKE_BINARY_DIR}/src)
 # Define executables
 add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
 
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${CMAKE_SOURCE_DIR}/OpenGL/include")
+
 # Code to find external libs
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "C:/Dev/Basic-Engine/cmake")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 
 # OpenGL
 find_package(OpenGL REQUIRED)
 # GLM
-find_package(glm REQUIRED)
+include(cmake/Findglm.cmake)
 message(STATUS "GLM included at ${GLM_INCLUDE_DIR}")
 # GLFW
 find_package(glfw3 REQUIRED)
@@ -38,9 +42,9 @@ message(STATUS "GLFW included at ${GLFW3_INCLUDE_DIR}")
 
 # Header only libraries
 # STB_IMAGE
-add_library(stb_image "${CMAKE_SOURCE_DIR}/Engine/Basic-Engine/src/ext/stb_image.cpp")
+add_library(stb_image "${CMAKE_SOURCE_DIR}/Engine/Basic-Engine/core/ext/stb_image.cpp")
 # GLAD
-add_library(glad "${CMAKE_SOURCE_DIR}/Engine/Basic-Engine/src/ext/glad.c")
+add_library(glad "${CMAKE_SOURCE_DIR}/Engine/Basic-Engine/core/ext/glad.c")
 #set_target_properties(glad PROPERTIES LINKER_LANGUAGE CXX)
 
 set(LIBS ${GLFW3_LIBRARY} ${OPENGL_LIBRARY} glad ${CMAKE_DL_LIBS} stb_image)
@@ -50,6 +54,9 @@ include_directories(
         "${CMAKE_SOURCE_DIR}/OpenGL/include/glad"
         "${CMAKE_SOURCE_DIR}/OpenGL/include/glm"
         "${CMAKE_SOURCE_DIR}/OpenGL/include/"
+        "${CMAKE_SOURCE_DIR}/Engine/Engine1.1/"
+        "${CMAKE_SOURCE_DIR}/Engine/Engine1.1/core/include"
+        "${CMAKE_SOURCE_DIR}/Engine/Engine1.1/core/"
 )
 
 # Define link libs

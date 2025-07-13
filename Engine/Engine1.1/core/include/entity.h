@@ -1,15 +1,16 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <bitset>
-#include <queue>
+#include "core.h"
+
+#include <cstdint>
 #include <array>
+#include <queue>
+#include <bitset>
 #include <memory>
 #include <unordered_map>
 #include <cassert>
 #include <typeinfo> 
-
-#include <core.h>
 
 namespace ECS
 {
@@ -20,10 +21,6 @@ namespace ECS
 	static constexpr Entity MAX_ENTITIES = 5000;
 
 	typedef std::bitset<MAX_COMPONENTS> Signature;
-	
-
-	// To define size of arrays later on
-
 
 	class ENGINE_API EntityManager
 	{
